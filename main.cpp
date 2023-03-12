@@ -6,7 +6,7 @@ int kMovesY[] = {1, 1, 2, 2, -1, -1, -2, -2};
 
 using namespace std;
 
-void printBoard(char **pos){
+void printBoard(int **pos){
     for(int i = 0; i < 8; ++i){
         for(int j = 0; j < 8; ++j){
             printf("%c ", pos[i][j]);
@@ -16,11 +16,11 @@ void printBoard(char **pos){
     printf("\n");
 }
 
-void genBishop(char **pos, int row, int col){
-    int add = 1;
+void genBishop(int **pos, int row, int col){
     int x = row + 1, y = col + 1;
     while(x <= 7 && y <= 7){
-        if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        // printf("%d %d\n", pos[x][y] - 'a', pos[row][col] - 'a');
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
         if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
             pos[x][y] = '*';
             break;
@@ -32,7 +32,7 @@ void genBishop(char **pos, int row, int col){
 
     x = row - 1, y = col + 1;
     while(x >= 0 && y <= 7){
-        if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
         if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
             pos[x][y] = '*';
             break;
@@ -44,7 +44,7 @@ void genBishop(char **pos, int row, int col){
 
     x = row + 1, y = col - 1;
     while(x <= 7 && y >= 0){
-        if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
         if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
             pos[x][y] = '*';
             break;
@@ -56,7 +56,7 @@ void genBishop(char **pos, int row, int col){
 
     x = row - 1, y = col - 1;
     while(x >= 0 && y >= 0){
-        if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
         if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
             pos[x][y] = '*';
             break;
@@ -69,7 +69,7 @@ void genBishop(char **pos, int row, int col){
     printBoard(pos);
 }
 
-void genKnight(char **pos, int row, int col){
+void genKnight(int **pos, int row, int col){
     int x,y;
     for(int i = 0; i < 8; ++i){
         x = row + kMovesX[i];
@@ -80,19 +80,170 @@ void genKnight(char **pos, int row, int col){
     printBoard(pos);
 }
 
+void genRook(int **pos, int row, int col){
+    int x = row + 1, y = col;
+    while(x <= 7 && y <= 7){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++x;
+    }
+
+    x = row - 1;
+    while(x >= 0 && y <= 7){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --x;
+    }
+
+    x = row, y = col + 1;
+    while(x <= 7 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++y;
+    }
+
+    y = col - 1;
+    while(x >= 0 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --y;
+    }
+
+    printBoard(pos);
+}
+
+void genQueen(char ** pos, int x, int y){
+    int x = row + 1, y = col + 1;
+    while(x <= 7 && y <= 7){
+        // printf("%d %d\n", pos[x][y] - 'a', pos[row][col] - 'a');
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++x, ++y;
+    }
+
+    x = row - 1, y = col + 1;
+    while(x >= 0 && y <= 7){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --x, ++y;
+    }
+
+    x = row + 1, y = col - 1;
+    while(x <= 7 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++x, --y;
+    }
+
+    x = row - 1, y = col - 1;
+    while(x >= 0 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --x; --y;
+    }
+    x = row + 1, y = col;
+    while(x <= 7 && y <= 7){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++x;
+    }
+
+    x = row - 1;
+    while(x >= 0 && y <= 7){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --x;
+    }
+
+    x = row, y = col + 1;
+    while(x <= 7 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        ++y;
+    }
+
+    y = col - 1;
+    while(x >= 0 && y >= 0){
+        if(pos[x][y] != '~' && (pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) break;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+            break;
+        }else{
+            pos[x][y] = '*';
+        }
+        --y;
+    }
+}
+
 int main(void){
-    char** board = new char*[8];
+    int** board = new int*[8];
     for (int i = 0; i < 8; ++i) {
-        board[i] = new char[8];
+        board[i] = new int[8];
         for(int j = 0; j < 8.; ++j){
             board[i][j] = '~';
         }
     }
-    int x = 4, y = 3;
-    board[x][y] = 'K';
-    board[x-2][y+1] = 'B';
-    genKnight(board, x, y);
-    // genBishop(board, x, y);
+    int x = 3, y = 3;
+    board[x][y] = 'R';
+    board[x+2][y] = 'k';
+    printBoard(board);
+    genRook(board, x, y);
+
 
 
     for (int i = 0; i < 8; ++i) {
