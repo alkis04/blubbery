@@ -1,8 +1,12 @@
 #include <stdio.h>
 
 
-int kMovesX[] = {-2, 2, -1, 1, -2, 2, -1, 1};
-int kMovesY[] = {1, 1, 2, 2, -1, -1, -2, -2};
+int nMovesX[] = {-2, 2, -1, 1, -2, 2, -1, 1};
+int nMovesY[] = {1, 1, 2, 2, -1, -1, -2, -2};
+
+int kMovesX[] = {1, 1, 1, 0, 0, -1, -1, -1};
+int kMovesY[] = {1, 0, -1, 1, -1, 1, 0, -1};
+
 
 using namespace std;
 
@@ -72,8 +76,8 @@ void genBishop(int **pos, int row, int col){
 void genKnight(int **pos, int row, int col){
     int x,y;
     for(int i = 0; i < 8; ++i){
-        x = row + kMovesX[i];
-        y = col + kMovesY[i];
+        x = row + nMovesX[i];
+        y = col + nMovesY[i];
         if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) continue; 
         pos[x][y] = '*';
     }
@@ -132,7 +136,7 @@ void genRook(int **pos, int row, int col){
     printBoard(pos);
 }
 
-void genQueen(char ** pos, int x, int y){
+void genQueen(int **pos, int row, int col){
     int x = row + 1, y = col + 1;
     while(x <= 7 && y <= 7){
         // printf("%d %d\n", pos[x][y] - 'a', pos[row][col] - 'a');
@@ -228,6 +232,19 @@ void genQueen(char ** pos, int x, int y){
         }
         --y;
     }
+
+    printBoard(pos);
+}
+
+void genKing(int **pos, int row, int col){
+    int x,y;
+    for(int i = 0; i < 8; ++i){
+        x = row + kMovesX[i];
+        y = col + kMovesY[i];
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') > 0) continue; 
+        pos[x][y] = '*';
+    }
+    printBoard(pos);
 }
 
 int main(void){
@@ -239,10 +256,11 @@ int main(void){
         }
     }
     int x = 3, y = 3;
-    board[x][y] = 'R';
-    board[x+2][y] = 'k';
+    board[x][y] = 'K';
+    board[x+2][y] = 'n';
+    board[x-1][y-1] = 'P';
     printBoard(board);
-    genRook(board, x, y);
+    genKing(board, x, y);
 
 
 
@@ -256,7 +274,7 @@ int main(void){
 Space ~
 King K 
 Pawn P
-Knight K 
+Knight N 
 Bishop B 
 Rook R
 Queen Q
