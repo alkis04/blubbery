@@ -247,6 +247,42 @@ void genKing(int **pos, int row, int col){
     printBoard(pos);
 }
 
+void genPawn(int **pos, int row, int col){
+    int start_pos;
+    int move;
+    if (pos[row][col] < 'a'){
+        move = -1;
+        start_pos = 6;
+    }else{
+        move = 1;
+        start_pos = 1;
+    }
+    int x = row + move;
+    int y = col;
+    if (row < 7){
+        if (pos[x][y] == '~'){
+            pos[x][y] = '*';
+            x += move;
+            if (row == start_pos && pos[x][y] == '~'){
+                pos[x][y] = '*';
+            }
+        }
+
+        x = row + move;
+        y = col - 1;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+        }
+
+        y = col + 1;
+        if((pos[x][y] - 'a')*(pos[row][col] - 'a') < 0 && pos[x][y] != '~'){ 
+            pos[x][y] = '*';
+        }
+    }
+
+    printBoard(pos);
+}
+
 int main(void){
     int** board = new int*[8];
     for (int i = 0; i < 8; ++i) {
@@ -255,12 +291,12 @@ int main(void){
             board[i][j] = '~';
         }
     }
-    int x = 3, y = 3;
-    board[x][y] = 'K';
-    board[x+2][y] = 'n';
-    board[x-1][y-1] = 'P';
+    int x = 1, y = 3;
+    board[x][y] = 'p';
+    board[x - 1][y - 1] = 'n';
+    //board[x-1][y-1] = 'P';
     printBoard(board);
-    genKing(board, x, y);
+    genPawn(board, x, y);
 
 
 
