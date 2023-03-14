@@ -1,2 +1,2 @@
 
-void printBoard(int **pos);
+void printBoard(char **pos);

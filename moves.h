@@ -1,12 +1,12 @@
-void genBishop(int **pos, int row, int col);
+void genBishop(char **pos, int row, int col);
 
-void genKnight(int **pos, int row, int col);
+void genKnight(char **pos, int row, int col);
 
-void genRook(int **pos, int row, int col);
+void genRook(char **pos, int row, int col);
 
-void genQueen(int **pos, int row, int col);
+void genQueen(char **pos, int row, int col);
 
-void genKing(int **pos, int row, int col);
+void genKing(char **pos, int row, int col);
 
-void genPawn(int **pos, int row, int col);
+void genPawn(char **pos, int row, int col);
 

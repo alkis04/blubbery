@@ -1,11 +1,11 @@
 .SILENT: 
 CC=gcc
-#VALFLAGS=--leak-check=full --show-leak-kinds=all --track-origins=yes -s
-# FORVAL=-c -Wall -Wextra -g3
+VALFLAGS=--leak-check=full --show-leak-kinds=all --track-origins=yes -s
+FORVAL=-c -Wall -Wextra -g3
 CFLAGS=-c $(FORVAL)
 PROGRAMPARAMS=
 PNAME=bluberry
-SOURCES= main.c printB.c moves.c
+SOURCES= main.c printB.c moves.c fen.c
 OBJECTS= $(SOURCES:.c=.o)
 all: program
 program: $(OBJECTS)
