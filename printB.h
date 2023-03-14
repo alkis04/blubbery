@@ -1,0 +1,2 @@
+
+void printBoard(int **pos);

@@ -1,24 +1,10 @@
-#include <stdio.h>
-
+#include "printB.h"
 
 int nMovesX[] = {-2, 2, -1, 1, -2, 2, -1, 1};
 int nMovesY[] = {1, 1, 2, 2, -1, -1, -2, -2};
 
 int kMovesX[] = {1, 1, 1, 0, 0, -1, -1, -1};
 int kMovesY[] = {1, 0, -1, 1, -1, 1, 0, -1};
-
-
-using namespace std;
-
-void printBoard(int **pos){
-    for(int i = 0; i < 8; ++i){
-        for(int j = 0; j < 8; ++j){
-            printf("%c ", pos[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
 
 void genBishop(int **pos, int row, int col){
     int x = row + 1, y = col + 1;
@@ -282,36 +268,3 @@ void genPawn(int **pos, int row, int col){
 
     printBoard(pos);
 }
-
-int main(void){
-    int** board = new int*[8];
-    for (int i = 0; i < 8; ++i) {
-        board[i] = new int[8];
-        for(int j = 0; j < 8.; ++j){
-            board[i][j] = '~';
-        }
-    }
-    int x = 1, y = 3;
-    board[x][y] = 'p';
-    board[x - 1][y - 1] = 'n';
-    //board[x-1][y-1] = 'P';
-    printBoard(board);
-    genPawn(board, x, y);
-
-
-
-    for (int i = 0; i < 8; ++i) {
-        delete[] board[i];
-    }
-    delete[] board;
-    return 0;
-}
-/*
-Space ~
-King K 
-Pawn P
-Knight N 
-Bishop B 
-Rook R
-Queen Q
-*/
